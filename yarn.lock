@@ -243,10 +243,10 @@ __metadata:
     "@affine/nbstore": "workspace:*"
     "@affine/track": "workspace:*"
     "@blocksuite/affine": "workspace:*"
-    "@capacitor/android": "npm:^7.0.0"
+    "@capacitor/android": "npm:^8.0.0"
     "@capacitor/app": "npm:^7.0.0"
-    "@capacitor/cli": "npm:^7.0.0"
-    "@capacitor/core": "npm:^7.0.0"
+    "@capacitor/cli": "npm:^8.0.0"
+    "@capacitor/core": "npm:^8.0.0"
     "@capacitor/keyboard": "npm:^7.0.0"
     "@capacitor/status-bar": "npm:^7.0.0"
     "@capgo/inappbrowser": "npm:^8.0.0"
@@ -667,10 +667,10 @@ __metadata:
     "@blocksuite/affine": "workspace:*"
     "@capacitor/app": "npm:^7.0.0"
     "@capacitor/browser": "npm:^7.0.0"
-    "@capacitor/cli": "npm:^7.0.0"
-    "@capacitor/core": "npm:^7.0.0"
+    "@capacitor/cli": "npm:^8.0.0"
+    "@capacitor/core": "npm:^8.0.0"
     "@capacitor/haptics": "npm:^7.0.0"
-    "@capacitor/ios": "npm:^7.0.0"
+    "@capacitor/ios": "npm:^8.0.0"
     "@capacitor/keyboard": "npm:^7.0.0"
     "@toeverything/infra": "workspace:^"
     "@types/react": "npm:^19.0.1"
@@ -722,7 +722,7 @@ __metadata:
   resolution: "@affine/mobile-shared@workspace:packages/frontend/apps/mobile-shared"
   dependencies:
     "@affine/core": "workspace:*"
-    "@capacitor/core": "npm:^7.0.0"
+    "@capacitor/core": "npm:^8.0.0"
     typescript: "npm:^5.9.3"
     vitest: "npm:^4.0.18"
   languageName: unknown
@@ -753,7 +753,7 @@ __metadata:
   resolution: "@affine/monorepo@workspace:."
   dependencies:
     "@affine-tools/cli": "workspace:*"
-    "@capacitor/cli": "npm:^7.0.0"
+    "@capacitor/cli": "npm:^8.0.0"
     "@eslint/js": "npm:^9.39.2"
     "@faker-js/faker": "npm:^10.1.0"
     "@istanbuljs/schema": "npm:^0.1.3"
@@ -3515,12 +3515,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@capacitor/android@npm:^7.0.0":
-  version: 7.4.5
-  resolution: "@capacitor/android@npm:7.4.5"
+"@capacitor/android@npm:^8.0.0":
+  version: 8.3.1
+  resolution: "@capacitor/android@npm:8.3.1"
   peerDependencies:
-    "@capacitor/core": ^7.4.0
-  checksum: 10/c960f3dae60ab8d1b9a1848af72741dc05eca246399426eea32e36915696d42e29d82be0ddf350f3edd92b235cd58d03705ae00a38a25edbc410290ae8f44702
+    "@capacitor/core": ^8.3.0
+  checksum: 10/e2b0012af6ac95256dfb7d971c6f23bfdc4e79bd056e919957169a49d67590c5f6737e2dc5376b37c0bce9991ff32a3cd00ca776c2b53ca5c058d4ae6600f634
   languageName: node
   linkType: hard
 
@@ -3542,9 +3542,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@capacitor/cli@npm:^7.0.0":
-  version: 7.4.5
-  resolution: "@capacitor/cli@npm:7.4.5"
+"@capacitor/cli@npm:^8.0.0":
+  version: 8.3.1
+  resolution: "@capacitor/cli@npm:8.3.1"
   dependencies:
     "@ionic/cli-framework-output": "npm:^2.2.8"
     "@ionic/utils-subprocess": "npm:^3.0.1"
@@ -3560,22 +3560,22 @@ __metadata:
     prompts: "npm:^2.4.2"
     rimraf: "npm:^6.0.1"
     semver: "npm:^7.6.3"
-    tar: "npm:^6.1.11"
+    tar: "npm:^7.5.3"
     tslib: "npm:^2.8.1"
     xml2js: "npm:^0.6.2"
   bin:
     cap: bin/capacitor
     capacitor: bin/capacitor
-  checksum: 10/235998d88be7164102af04030e6a17268d63792cca620e06408f0199b250aa48b37b8e83aa6227930c2da880add9a50f3efcd7eee293baed6c6aaa1bf8e2e364
+  checksum: 10/bd264e71ac6465b9c990edb403dc9c1c623ae9bf48110e8208e0f155f7f175a8592f2da992b97276fef29619cf49c9bbee3f760fd2ea238661a942aef8ffc27e
   languageName: node
   linkType: hard
 
-"@capacitor/core@npm:^7.0.0":
-  version: 7.4.5
-  resolution: "@capacitor/core@npm:7.4.5"
+"@capacitor/core@npm:^8.0.0":
+  version: 8.3.1
+  resolution: "@capacitor/core@npm:8.3.1"
   dependencies:
     tslib: "npm:^2.1.0"
-  checksum: 10/22d83d386199b08e0ef7ee59bb44863b5aef89edeb40377deeabf7bf28cbaeded041677813dee58a6a585311ba9b3b82658336300d7239b663c5c4d499eda9ae
+  checksum: 10/cd71ddd42b415333586dd84fe0698574ad83297ace2044b6e2d698f6c2c871f8c4ed5a120f23eacd6e87679199dcb673c0bb2a2674ea95b62ee75dd48e72c1df
   languageName: node
   linkType: hard
 
@@ -3588,12 +3588,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@capacitor/ios@npm:^7.0.0":
-  version: 7.4.5
-  resolution: "@capacitor/ios@npm:7.4.5"
+"@capacitor/ios@npm:^8.0.0":
+  version: 8.3.1
+  resolution: "@capacitor/ios@npm:8.3.1"
   peerDependencies:
-    "@capacitor/core": ^7.4.0
-  checksum: 10/248dafcd68ddd759e76da15fe4ce68654a9e39d12edda5f6cec071a9c33ae6508d10a777f789db906688f4baf0e83058cd04713e1e15132f38d8a13777672d43
+    "@capacitor/core": ^8.3.0
+  checksum: 10/d1697aba574413a5448438044cc261f54bf7926490fbe7778b9d34d80ad7751acab097c55b8f4bd60b87c34bcce5708ca0dea717678c155f5ff9647833de3b4e
   languageName: node
   linkType: hard
 
@@ -10881,14 +10881,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@protobufjs/codegen@npm:^2.0.4":
-  version: 2.0.4
-  resolution: "@protobufjs/codegen@npm:2.0.4"
-  checksum: 10/c6ee5fa172a8464f5253174d3c2353ea520c2573ad7b6476983d9b1346f4d8f2b44aa29feb17a949b83c1816bc35286a5ea265ed9d8fdd2865acfa09668c0447
-  languageName: node
-  linkType: hard
-
-"@protobufjs/codegen@npm:^2.0.5":
+"@protobufjs/codegen@npm:^2.0.4, @protobufjs/codegen@npm:^2.0.5":
   version: 2.0.5
   resolution: "@protobufjs/codegen@npm:2.0.5"
   checksum: 10/290335fa114f26202abc0695f279d53e2fd516b01cfd8298923591e0bda011295ff40e3582a1cda0a0f27cbc5039a0292082d5ad08872bb5d6243a614ac15c88
@@ -10919,14 +10912,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@protobufjs/inquire@npm:^1.1.0":
-  version: 1.1.0
-  resolution: "@protobufjs/inquire@npm:1.1.0"
-  checksum: 10/c09efa34a5465cb120775e1a482136f2340a58b4abce7e93d72b8b5a9324a0e879275016ef9fcd73d72a4731639c54f2bb755bb82f916e4a78892d1d840bb3d2
-  languageName: node
-  linkType: hard
-
-"@protobufjs/inquire@npm:^1.1.1":
+"@protobufjs/inquire@npm:^1.1.0, @protobufjs/inquire@npm:^1.1.1":
   version: 1.1.1
   resolution: "@protobufjs/inquire@npm:1.1.1"
   checksum: 10/504740e8ac348f70b33bcf6a20c83d5b9679901654c1a96b18c0491ec2f2f7ac580e74019b6d1bce16113bfb9746bc6e7dfd4e12a717deed699675b7f230ce9e
@@ -10947,14 +10933,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@protobufjs/utf8@npm:^1.1.0":
-  version: 1.1.0
-  resolution: "@protobufjs/utf8@npm:1.1.0"
-  checksum: 10/131e289c57534c1d73a0e55782d6751dd821db1583cb2f7f7e017c9d6747addaebe79f28120b2e0185395d990aad347fb14ffa73ef4096fa38508d61a0e64602
-  languageName: node
-  linkType: hard
-
-"@protobufjs/utf8@npm:^1.1.1":
+"@protobufjs/utf8@npm:^1.1.0, @protobufjs/utf8@npm:^1.1.1":
   version: 1.1.1
   resolution: "@protobufjs/utf8@npm:1.1.1"
   checksum: 10/ed0c3f9ff1afd602a0aed54c4c03a0b8f641686a5587d8949e088dcac653fb2019d15691ed92eef23dfdf9f4293249532d0508ecd15cef810acf026917719a19
@@ -15358,14 +15337,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@slack/types@npm:^2.11.0":
-  version: 2.14.0
-  resolution: "@slack/types@npm:2.14.0"
-  checksum: 10/fa24a113b88e087f899078504c2ba50ab9795f7c2dd1a2d95b28217a3af20e554494f9cc3b8c8ce173120990d98e19400c95369f9067cecfcc46c08b59d2a46f
-  languageName: node
-  linkType: hard
-
-"@slack/types@npm:^2.20.1":
+"@slack/types@npm:^2.11.0, @slack/types@npm:^2.20.1":
   version: 2.20.1
   resolution: "@slack/types@npm:2.20.1"
   checksum: 10/5d13017df8c8468f34e4d24579a26f5ada934a6b7139e88d894c7d1d14f47da826a20c08e2537c6ab74d7624a4b193dc2b34458bae6466173fad1fd5c053b6f6
@@ -17114,16 +17086,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:>=10.0.0, @types/node@npm:>=13.7.0, @types/node@npm:>=20.0.0, @types/node@npm:>=8.1.0":
-  version: 25.5.0
-  resolution: "@types/node@npm:25.5.0"
-  dependencies:
-    undici-types: "npm:~7.18.0"
-  checksum: 10/b1e8116bd8c9ff62e458b76d28a59cf7631537bb17e8961464bf754dd5b07b46f1620f568b2f89970505af9eef478dd74c614651b454c1ea95949ec472c64fcb
-  languageName: node
-  linkType: hard
-
-"@types/node@npm:>=18":
+"@types/node@npm:*, @types/node@npm:>=10.0.0, @types/node@npm:>=13.7.0, @types/node@npm:>=18, @types/node@npm:>=20.0.0, @types/node@npm:>=8.1.0":
   version: 25.6.0
   resolution: "@types/node@npm:25.6.0"
   dependencies:
@@ -30710,14 +30673,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"path-expression-matcher@npm:^1.1.3":
-  version: 1.1.3
-  resolution: "path-expression-matcher@npm:1.1.3"
-  checksum: 10/9a607d0bf9807cf86b0a29fb4263f0c00285c13bedafb6ad3efc8bc87ae878da2faf657a9138ac918726cb19f147235a0ca695aec3e4ea1ee04641b6520e6c9e
-  languageName: node
-  linkType: hard
-
-"path-expression-matcher@npm:^1.5.0":
+"path-expression-matcher@npm:^1.1.3, path-expression-matcher@npm:^1.5.0":
   version: 1.5.0
   resolution: "path-expression-matcher@npm:1.5.0"
   checksum: 10/28303bb9ee6831e6df14c10cd3f3f7b2d7c8d7f788d8bdb7440136fd696064c82a3e264999a0764d28e39f698275fc03a5493bec93c57ef4a22566280367dd64
@@ -34799,7 +34755,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tar@npm:^7.4.0, tar@npm:^7.4.3, tar@npm:^7.5.6, tar@npm:^7.5.7":
+"tar@npm:^7.4.0, tar@npm:^7.4.3, tar@npm:^7.5.3, tar@npm:^7.5.6, tar@npm:^7.5.7":
   version: 7.5.13
   resolution: "tar@npm:7.5.13"
   dependencies:
@@ -35591,13 +35547,6 @@ __metadata:
   version: 6.21.0
   resolution: "undici-types@npm:6.21.0"
   checksum: 10/ec8f41aa4359d50f9b59fa61fe3efce3477cc681908c8f84354d8567bb3701fafdddf36ef6bff307024d3feb42c837cf6f670314ba37fc8145e219560e473d14
-  languageName: node
-  linkType: hard
-
-"undici-types@npm:~7.18.0":
-  version: 7.18.2
-  resolution: "undici-types@npm:7.18.2"
-  checksum: 10/e61a5918f624d68420c3ca9d301e9f15b61cba6e97be39fe2ce266dd6151e4afe424d679372638826cb506be33952774e0424141200111a9857e464216c009af
   languageName: node
   linkType: hard
 
