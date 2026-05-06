@@ -1,0 +1,227 @@
+name: Twine Image
+
+# Builds a self-host Docker image of the Twine fork and publishes it to
+# ghcr.io/<owner>/twine. Adapted from the upstream `build-images.yml` but
+# stripped of secrets (Sentry / Perfsee / R2 / paid-license keys) that are
+# specific to toeverything/AFFiNE's CI and don't apply to a self-host fork.
+#
+# Triggers:
+#   - push to the `twine` branch (excluding doc-only changes)
+#   - manual dispatch from the Actions tab
+#
+# Output image tags:
+#   ghcr.io/<owner>/twine:latest
+#   ghcr.io/<owner>/twine:<short-sha>
+#
+# Single architecture (linux/amd64) — that's what Railway runs.
+
+on:
+  push:
+    branches: [twine]
+    paths-ignore:
+      - '**/*.md'
+      - 'docs/**'
+      - '.github/**'
+      - '!.github/workflows/twine-image.yml'
+      - '!.github/deployment/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+env:
+  BUILD_TYPE: stable
+
+jobs:
+  build-web:
+    name: Build @affine/web
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Setup Version
+        uses: ./.github/actions/setup-version
+        with:
+          app-version: 0.0.0-twine
+      - name: Setup Node.js
+        uses: ./.github/actions/setup-node
+      - name: Build Core
+        run: yarn affine @affine/web build
+        env:
+          BUILD_TYPE: ${{ env.BUILD_TYPE }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: web
+          path: ./packages/frontend/apps/web/dist
+          if-no-files-found: error
+
+  build-admin:
+    name: Build @affine/admin
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Setup Version
+        uses: ./.github/actions/setup-version
+        with:
+          app-version: 0.0.0-twine
+      - name: Setup Node.js
+        uses: ./.github/actions/setup-node
+      - name: Build Admin
+        run: yarn affine @affine/admin build
+        env:
+          BUILD_TYPE: ${{ env.BUILD_TYPE }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: admin
+          path: ./packages/frontend/admin/dist
+          if-no-files-found: error
+
+  build-mobile:
+    name: Build @affine/mobile
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Setup Version
+        uses: ./.github/actions/setup-version
+        with:
+          app-version: 0.0.0-twine
+      - name: Setup Node.js
+        uses: ./.github/actions/setup-node
+      - name: Build Mobile
+        run: yarn affine @affine/mobile build
+        env:
+          BUILD_TYPE: ${{ env.BUILD_TYPE }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: mobile
+          path: ./packages/frontend/apps/mobile/dist
+          if-no-files-found: error
+
+  build-server-native:
+    name: Build Server native (linux/amd64)
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v6
+      - name: Setup Version
+        uses: ./.github/actions/setup-version
+        with:
+          app-version: 0.0.0-twine
+      - name: Setup Node.js
+        uses: ./.github/actions/setup-node
+        with:
+          electron-install: false
+          extra-flags: workspaces focus @affine/server-native
+      - name: Build Rust
+        uses: ./.github/actions/build-rust
+        with:
+          target: x86_64-unknown-linux-gnu
+          package: '@affine/server-native'
+      - name: Rename to server-native.x64.node
+        run: mv ./packages/backend/native/server-native.node ./packages/backend/native/server-native.x64.node
+      - uses: actions/upload-artifact@v4
+        with:
+          name: server-native-server-native.x64.node
+          path: ./packages/backend/native/server-native.x64.node
+          if-no-files-found: error
+
+  build-server:
+    name: Build Server
+    runs-on: ubuntu-latest
+    needs: [build-server-native]
+    steps:
+      - uses: actions/checkout@v6
+      - name: Setup Version
+        uses: ./.github/actions/setup-version
+        with:
+          app-version: 0.0.0-twine
+      - name: Setup Node.js
+        uses: ./.github/actions/setup-node
+        with:
+          electron-install: false
+          extra-flags: workspaces focus @affine/server @types/affine__env
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: server-native-*
+          merge-multiple: true
+          path: ./packages/backend/native
+      - run: ls -alh ./packages/backend/native
+      - name: Build Server
+        run: yarn workspace @affine/server build
+      - uses: actions/upload-artifact@v4
+        with:
+          name: server-dist
+          path: ./packages/backend/server/dist
+          if-no-files-found: error
+
+  build-image:
+    name: Build & Push Twine Image
+    runs-on: ubuntu-latest
+    needs: [build-server, build-web, build-admin, build-mobile]
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: server-dist
+          path: ./packages/backend/server/dist
+      - uses: actions/download-artifact@v4
+        with:
+          name: web
+          path: ./packages/frontend/apps/web/dist
+      - uses: actions/download-artifact@v4
+        with:
+          name: admin
+          path: ./packages/frontend/admin/dist
+      - uses: actions/download-artifact@v4
+        with:
+          name: mobile
+          path: ./packages/frontend/apps/mobile/dist
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: docker/setup-buildx-action@v3
+
+      - name: Setup Node.js (no cache)
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: '.nvmrc'
+          registry-url: https://npm.pkg.github.com
+          scope: '@toeverything'
+
+      - name: Install production dependencies
+        run: |
+          yarn config set --json supportedArchitectures.cpu '["x64"]'
+          yarn config set --json supportedArchitectures.libc '["glibc"]'
+          yarn workspaces focus @affine/server --production
+
+      - name: Generate Prisma client
+        run: yarn workspace @affine/server prisma generate
+
+      - name: Move node_modules into server dir
+        run: mv ./node_modules ./packages/backend/server
+
+      - name: Setup Version
+        uses: ./.github/actions/setup-version
+        with:
+          app-version: 0.0.0-twine
+
+      - name: Compute short SHA
+        id: sha
+        run: echo "short=$(git rev-parse --short HEAD)" >> "$GITHUB_OUTPUT"
+
+      - name: Build & push Twine image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          pull: true
+          platforms: linux/amd64
+          file: .github/deployment/node/Dockerfile
+          tags: |
+            ghcr.io/${{ github.repository_owner }}/twine:latest
+            ghcr.io/${{ github.repository_owner }}/twine:${{ steps.sha.outputs.short }}
