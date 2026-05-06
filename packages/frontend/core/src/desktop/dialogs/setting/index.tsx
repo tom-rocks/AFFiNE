@@ -14,9 +14,9 @@ import type {
 } from '@affine/core/modules/dialogs/constant';
 import { GlobalContextService } from '@affine/core/modules/global-context';
 import { createIsland, type Island } from '@affine/core/utils/island';
-import { ServerDeploymentType } from '@affine/graphql';
-import { Trans, useTranslation } from '@affine/i18n';
-import { ContactWithUsIcon } from '@blocksuite/icons/rc';
+// twine: ServerDeploymentType, Trans and ContactWithUsIcon all dropped
+// — the License auto-redirect and "Star us on GitHub" footer they powered are gone.
+import { useTranslation } from '@affine/i18n';
 import { FrameworkScope, useLiveData, useService } from '@toeverything/infra';
 import { debounce } from 'lodash-es';
 import {
@@ -32,9 +32,8 @@ import { flushSync } from 'react-dom';
 
 import { AccountSetting } from './account-setting';
 import { GeneralSetting } from './general-setting';
-import { IssueFeedbackModal } from './issue-feedback-modal';
+// twine: IssueFeedbackModal + StarAFFiNEModal dropped with the upsell footer.
 import { SettingSidebar } from './setting-sidebar';
-import { StarAFFiNEModal } from './star-affine-modal';
 import * as style from './style.css';
 import {
   SubPageContext,
@@ -87,11 +86,7 @@ const SettingModalInner = ({
   const loginStatus = useLiveData(
     currentServer.scope.get(AuthService).session.status$
   );
-  const isSelfhosted = useLiveData(
-    currentServer.config$.selector(
-      c => c.type === ServerDeploymentType.Selfhosted
-    )
-  );
+  // twine: isSelfhosted removed — was only used by the License auto-redirect.
 
   const modalContentRef = useRef<HTMLDivElement>(null);
   const modalContentWrapperRef = useRef<HTMLDivElement>(null);
@@ -142,16 +137,7 @@ const SettingModalInner = ({
     },
     [setSettingState]
   );
-  const [openIssueFeedbackModal, setOpenIssueFeedbackModal] = useState(false);
-  const [openStarAFFiNEModal, setOpenStarAFFiNEModal] = useState(false);
-
-  const handleOpenIssueFeedbackModal = useCallback(() => {
-    setOpenIssueFeedbackModal(true);
-  }, [setOpenIssueFeedbackModal]);
-
-  const handleOpenStarAFFiNEModal = useCallback(() => {
-    setOpenStarAFFiNEModal(true);
-  }, [setOpenStarAFFiNEModal]);
+  // twine: feedback / star-AFFiNE modal state removed with the footer.
 
   const addSubPageIsland = useCallback(() => {
     const island = createIsland();
@@ -171,15 +157,12 @@ const SettingModalInner = ({
     [subPageIslands, addSubPageIsland]
   );
 
-  useEffect(() => {
-    if (
-      isSelfhosted &&
-      (settingState.activeTab === 'plans' ||
-        settingState.activeTab === 'workspace:billing')
-    ) {
-      setSettingState({ activeTab: 'workspace:license' });
-    }
-  }, [isSelfhosted, settingState.activeTab]);
+  // twine: removed the auto-redirect that pushed self-host users from
+  // 'plans' / 'workspace:billing' to 'workspace:license'. With the
+  // License screen gone, the redirect would land on a blank tab.
+  // If a user somehow lands on plans/billing on a self-host install,
+  // the switch in GeneralSetting/WorkspaceSetting just renders nothing
+  // (acceptable — those tabs aren't reachable from any sidebar entry).
 
   useEffect(() => {
     if (settingState.scrollAnchor) {
@@ -233,34 +216,7 @@ const SettingModalInner = ({
                   ) : null}
                 </Suspense>
               </div>
-              <div className={style.footer}>
-                <ContactWithUsIcon fontSize={16} />
-                <Trans
-                  i18nKey={'com.affine.settings.suggestion-2'}
-                  components={{
-                    1: (
-                      <span
-                        className={style.link}
-                        onClick={handleOpenStarAFFiNEModal}
-                      />
-                    ),
-                    2: (
-                      <span
-                        className={style.link}
-                        onClick={handleOpenIssueFeedbackModal}
-                      />
-                    ),
-                  }}
-                />
-              </div>
-              <StarAFFiNEModal
-                open={openStarAFFiNEModal}
-                setOpen={setOpenStarAFFiNEModal}
-              />
-              <IssueFeedbackModal
-                open={openIssueFeedbackModal}
-                setOpen={setOpenIssueFeedbackModal}
-              />
+              {/* twine: "Love our app? Star us on GitHub..." footer removed. */}
             </div>
             <Scrollable.Scrollbar />
           </Scrollable.Viewport>

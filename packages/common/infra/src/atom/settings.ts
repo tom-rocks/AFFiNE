@@ -34,7 +34,7 @@ const appSettingBaseAtom = atomWithStorage<AppSetting>(
     enableNoisyBackground: true,
     autoCheckUpdate: true,
     autoDownloadUpdate: true,
-    enableTelemetry: true,
+    enableTelemetry: false, // twine: was true; we don't ship usage data anywhere by default
     showLinkedDocInSidebar: true,
     disableImageAntialiasing: false,
   },
