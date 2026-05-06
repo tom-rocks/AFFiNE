@@ -170,8 +170,21 @@ jobs:
           find packages/backend/server -maxdepth 3 -type d -name dist -print 2>/dev/null || true
           echo "--- ls of expected path ---"
           ls -la packages/backend/server/dist 2>&1 || echo "expected dist missing"
-          echo "--- last 80 lines of build log ---"
-          tail -80 /tmp/build-server.log 2>&1 || true
+          echo "============================================================"
+          echo "===== ERROR-only filter from build log ====================="
+          echo "============================================================"
+          grep -n -E '(Error|ERROR|error TS|Module not found|Cannot|Failed)' /tmp/build-server.log | head -100 || true
+          echo "============================================================"
+          echo "===== FULL build log (last 800 lines) ======================"
+          echo "============================================================"
+          tail -800 /tmp/build-server.log 2>&1 || true
+      - name: Upload build log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-server-log
+          path: /tmp/build-server.log
+          if-no-files-found: warn
       - uses: actions/upload-artifact@v4
         with:
           name: server-dist
