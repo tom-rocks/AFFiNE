@@ -93,3 +93,6 @@ af.cmd
 
 # playwright
 storageState.json
+
+# local commit-message scratch
+.git-commit-msg.tmp
