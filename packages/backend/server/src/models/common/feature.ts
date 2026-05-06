@@ -97,11 +97,11 @@ const FreeFeature = {
   configs: {
     // quota name
     name: 'Free',
-    blobLimit: 10 * OneMB,
-    businessBlobLimit: 100 * OneMB,
-    storageQuota: 10 * OneGB,
-    historyPeriod: 7 * OneDay,
-    memberLimit: 3,
+    blobLimit: 100 * OneMB, // twine: was 10MB; raised to match Pro tier
+    businessBlobLimit: 500 * OneMB, // twine: was 100MB
+    storageQuota: 1024 * OneGB, // twine: was 10GB; we own our infra, no need to cap
+    historyPeriod: 30 * OneDay, // twine: was 7 days
+    memberLimit: 1000, // twine: was 3; CE seat-cap removed for self-host fork
     copilotActionLimit: 10,
   },
 } as const;

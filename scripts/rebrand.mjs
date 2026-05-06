@@ -30,9 +30,19 @@ const REPO_ROOT = join(fileURLToPath(import.meta.url), "..", "..");
  * "Cloud" wording entirely instead of producing "Twine Cloud".
  */
 const TEXT_RULES = [
+  // SelfHost-flavoured brand strings — repoint to the company name.
+  { from: /\bAFFiNE\s+SelfHost(?:ed)?(?:\s+Cloud)?\b/g, to: "Lyon Partners Self Hosted" },
+  { from: /\bAffine\s+Selfhost(?:ed)?(?:\s+Cloud)?\b/g, to: "Lyon Partners Self Hosted" },
+  { from: /\bAFFINE\s+SELFHOST(?:ED)?(?:\s+CLOUD)?\b/g, to: "LYON PARTNERS SELF HOSTED" },
+
+  // "Cloud"-suffixed brand strings — drop "Cloud" so it doesn't lie about
+  // what the runtime actually is on a self-host install.
   { from: /\bAFFiNE\s+Cloud\b/g, to: "Twine" },
+  { from: /\bAFFINE\s+Cloud\b/g, to: "Twine" },
   { from: /\bAffine\s+Cloud\b/g, to: "Twine" },
   { from: /\bAFFINE\s+CLOUD\b/g, to: "TWINE" },
+
+  // Other product brand-name strings.
   { from: /\bAFFiNE\s+AI\b/g, to: "Twine AI" },
   { from: /\bAFFiNE\s+Pro\b/g, to: "Twine" },
   { from: /\bAFFiNE\b/g, to: "Twine" },

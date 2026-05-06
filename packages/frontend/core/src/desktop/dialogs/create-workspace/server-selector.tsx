@@ -5,8 +5,8 @@ import {
   ArrowDownSmallIcon,
   CloudWorkspaceIcon,
   DoneIcon,
-  LocalWorkspaceIcon,
   SelfhostIcon,
+  // twine: LocalWorkspaceIcon removed — local-only workspaces are hidden.
 } from '@blocksuite/icons/rc';
 import { useLiveData, useService } from '@toeverything/infra';
 import clsx from 'clsx';
@@ -67,10 +67,7 @@ export const ServerSelector = ({
       }}
       items={
         <ul className={styles.list} data-testid="server-selector-list">
-          <LocalSelectorItem
-            onSelect={onChange}
-            active={selectedId === 'local'}
-          />
+          {/* twine: Local-only workspaces hidden — Twine is server-backed. */}
           {servers.map(server => (
             <ServerSelectorItem
               key={server.id}
@@ -94,29 +91,7 @@ export const ServerSelector = ({
   );
 };
 
-const LocalSelectorItem = ({
-  onSelect,
-  active,
-}: {
-  onSelect?: (id: string) => void;
-  active?: boolean;
-}) => {
-  const t = useI18n();
-  const handleSelect = useCallback(() => {
-    onSelect?.('local');
-  }, [onSelect]);
-  return (
-    <MenuItem
-      data-testid="local"
-      className={styles.item}
-      prefixIcon={<LocalWorkspaceIcon />}
-      onClick={handleSelect}
-      suffixIcon={active ? <DoneIcon className={styles.done} /> : null}
-    >
-      {t['com.affine.workspaceList.workspaceListType.local']()}
-    </MenuItem>
-  );
-};
+// twine: LocalSelectorItem removed — Twine is server-backed only.
 
 const ServerSelectorItem = ({
   server,

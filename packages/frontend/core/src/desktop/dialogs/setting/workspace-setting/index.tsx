@@ -127,14 +127,9 @@ export const useWorkspaceSettingList = (): SettingSidebarItem[] => {
         icon: <PaymentIcon />,
         testId: 'workspace-setting:billing',
       },
-      showLicense && {
-        key: 'workspace:license' as SettingTab,
-        title: t['com.affine.settings.workspace.license'](),
-        icon: <PaymentIcon />,
-        testId: 'workspace-setting:license',
-      },
+      // twine: License tab removed — we don't sell licenses.
     ].filter((item): item is SettingSidebarItem => !!item);
-  }, [showBilling, showLicense, t]);
+  }, [showBilling, t]);
 
   return items;
 };

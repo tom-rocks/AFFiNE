@@ -199,30 +199,13 @@ const CloudWorkSpaceList = ({
   );
 };
 
-const LocalWorkspaces = ({
-  workspaces,
-  onClickWorkspace,
-  onClickWorkspaceSetting,
-  onClickEnableCloud,
-}: Omit<WorkspaceModalProps, 'onNewWorkspace' | 'onAddWorkspace'>) => {
-  const t = useI18n();
-  if (workspaces.length === 0) {
-    return null;
-  }
-  return (
-    <>
-      <WorkspaceServerInfo
-        server="local"
-        name={t['com.affine.workspaceList.workspaceListType.local']()}
-      />
-      <WorkspaceList
-        items={workspaces}
-        onClick={onClickWorkspace}
-        onSettingClick={onClickWorkspaceSetting}
-        onEnableCloudClick={onClickEnableCloud}
-      />
-    </>
-  );
+// twine: LocalWorkspaces section hidden from the workspace picker.
+// Twine is server-backed only — no local-only workspaces in the UI.
+// Signature kept identical so call sites don't need to change.
+const LocalWorkspaces = (
+  _props: Omit<WorkspaceModalProps, 'onNewWorkspace' | 'onAddWorkspace'>
+) => {
+  return null;
 };
 
 export const AFFiNEWorkspaceList = ({

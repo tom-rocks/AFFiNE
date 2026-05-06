@@ -165,24 +165,8 @@ const LocalWorkspaces = ({
   onClickWorkspaceSetting?: (workspaceMetadata: WorkspaceMetadata) => void;
   onClickEnableCloud?: (meta: WorkspaceMetadata) => void;
 }) => {
-  const t = useI18n();
-  if (workspaces.length === 0) {
-    return null;
-  }
-  return (
-    <>
-      <WorkspaceServerInfo
-        server="local"
-        name={t['com.affine.workspaceList.workspaceListType.local']()}
-      />
-      <WorkspaceList
-        items={workspaces}
-        onClick={onClickWorkspace}
-        onSettingClick={onClickWorkspaceSetting}
-        onEnableCloudClick={onClickEnableCloud}
-      />
-    </>
-  );
+  // twine: local workspaces hidden on mobile too — Twine is server-backed only.
+  return null;
 };
 
 const CloudWorkSpaceList = ({
