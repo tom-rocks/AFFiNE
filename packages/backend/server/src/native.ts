@@ -127,9 +127,15 @@ export const parsePageDocFromBinary = serverNativeModule.parsePageDoc;
 export const parseWorkspaceDocFromBinary = serverNativeModule.parseWorkspaceDoc;
 export const readAllDocIdsFromRootDoc =
   serverNativeModule.readAllDocIdsFromRootDoc;
-export const AFFINE_PRO_PUBLIC_KEY = serverNativeModule.AFFINE_PRO_PUBLIC_KEY;
-export const AFFINE_PRO_LICENSE_AES_KEY =
-  serverNativeModule.AFFINE_PRO_LICENSE_AES_KEY;
+// twine: AFFiNE Pro license keys are intentionally absent in our fork.
+// Upstream bakes these into the Rust crate at build time via env vars
+// from corporate secrets we don't have. The runtime in crypto.ts already
+// handles the missing case (returns null and logs a warning), but the
+// bundler used to fail static-resolving the named exports from the .node
+// file when they're absent. Hardcoding them as undefined here keeps the
+// bundler happy and matches the runtime semantics.
+export const AFFINE_PRO_PUBLIC_KEY: string | undefined | null = undefined;
+export const AFFINE_PRO_LICENSE_AES_KEY: string | undefined | null = undefined;
 
 // MCP write tools exports
 export const createDocWithMarkdown = serverNativeModule.createDocWithMarkdown;
