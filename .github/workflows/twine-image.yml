@@ -145,8 +145,33 @@ jobs:
           merge-multiple: true
           path: ./packages/backend/native
       - run: ls -alh ./packages/backend/native
-      - name: Build Server
-        run: yarn workspace @affine/server build
+      - name: Verify affine CLI binary is resolvable
+        run: |
+          echo "PATH: $PATH"
+          which yarn
+          yarn --version
+          yarn workspaces list --json | head -5 || true
+          ls -la node_modules/.bin/affine || echo "no affine in root .bin"
+          ls -la packages/backend/server/node_modules/.bin/affine || echo "no affine in server .bin"
+      - name: Build Server (verbose)
+        run: |
+          set -euxo pipefail
+          yarn workspace @affine/server build 2>&1 | tee /tmp/build-server.log
+          BUILD_EXIT=${PIPESTATUS[0]}
+          echo "Build exit code: $BUILD_EXIT"
+          if [ "$BUILD_EXIT" -ne 0 ]; then
+            echo "FAIL: build exited $BUILD_EXIT"
+            exit "$BUILD_EXIT"
+          fi
+      - name: Inspect build output
+        if: always()
+        run: |
+          echo "--- Looking for dist directories under packages/backend/server ---"
+          find packages/backend/server -maxdepth 3 -type d -name dist -print 2>/dev/null || true
+          echo "--- ls of expected path ---"
+          ls -la packages/backend/server/dist 2>&1 || echo "expected dist missing"
+          echo "--- last 80 lines of build log ---"
+          tail -80 /tmp/build-server.log 2>&1 || true
       - uses: actions/upload-artifact@v4
         with:
           name: server-dist
